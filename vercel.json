@@ -1,8 +1,24 @@
 {
-  "rewrites": [
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "buildCommand": "npx prisma generate && next build",
+  "installCommand": "npm install",
+  "env": {
+    "NEXT_TELEMETRY_DISABLED": "1"
+  },
+  "headers": [
     {
-      "source": "/((?!api|_next|monitoring|favicon.ico).*)",
-      "destination": "/"
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, must-revalidate"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
     }
   ]
 }
