@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --hc-bg: #ffffff;
+  --hc-fg: #000000;
+  --hc-border: #d1d5db;
+  --hc-link: #2563eb;
+  --hc-focus: #005fcc;
+  --hc-error: #dc2626;
+  --hc-success: #16a34a;
+}
+
+[data-high-contrast="true"] {
+  --hc-bg: #000000;
+  --hc-fg: #ffffff;
+  --hc-border: #ffffff;
+  --hc-link: #ffff00;
+  --hc-focus: #ffff00;
+  --hc-error: #ff6b6b;
+  --hc-success: #4ade80;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-hc-bg text-hc-fg;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a {
+    @apply text-hc-link underline;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [tabindex]:focus-visible {
+    @apply focus-ring;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold text-hc-fg;
+  }
+}
+
+@layer components {
+  .skip-link {
+    @apply absolute left-0 top-0 z-50 -translate-y-full bg-hc-fg text-hc-bg px-4 py-2 font-semibold transition-transform;
+  }
+
+  .skip-link:focus {
+    @apply translate-y-0;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md border border-hc-border px-4 py-2 text-sm font-medium transition-colors;
+    @apply bg-hc-bg text-hc-fg;
+    @apply hover:bg-hc-fg hover:text-hc-bg;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply bg-hc-fg text-hc-bg border-hc-fg;
+    @apply hover:bg-hc-bg hover:text-hc-fg hover:border-hc-border;
+  }
+
+  .btn-danger {
+    @apply bg-hc-error text-white border-hc-error;
+    @apply hover:opacity-80;
+  }
+
+  .input {
+    @apply w-full rounded-md border border-hc-border bg-hc-bg text-hc-fg px-3 py-2 text-sm;
+    @apply placeholder:text-gray-500;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-hc-fg mb-1;
+  }
+
+  .error-text {
+    @apply text-sm text-hc-error mt-1;
+  }
+
+  .success-text {
+    @apply text-sm text-hc-success mt-1;
+  }
+
+  .card {
+    @apply rounded-lg border border-hc-border bg-hc-bg p-4 shadow-sm;
+  }
+}
+
+@layer utilities {
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .not-sr-only {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+
+  [aria-hidden="true"] {
+    pointer-events: none;
+  }
+
+  [aria-disabled="true"] {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  [aria-invalid="true"] {
+    @apply border-hc-error;
+  }
+
+  [aria-busy="true"] {
+    @apply cursor-wait;
+  }
+
+  .reduce-motion * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    :root {
+      --hc-bg: #000000;
+      --hc-fg: #ffffff;
+      --hc-border: #ffffff;
+      --hc-link: #ffff00;
+      --hc-focus: #ffff00;
+      --hc-error: #ff6b6b;
+      --hc-success: #4ade80;
+    }
+  }
+}
